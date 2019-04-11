@@ -25,9 +25,12 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
      this.body.classList.add('hold-transition');
     this.body.classList.add('login-page');
+     this.body.classList.add('skin-blue');
+      this.body.classList.add('sidebar-mini');
+
      this.loginForm = this.formBuilder.group({
-            username: ['myapi', Validators.required],
-            password: ['abc1234', Validators.required]
+            username: ['ezee', Validators.required],
+            password: ['lipsrik', Validators.required]
         });
        
   }

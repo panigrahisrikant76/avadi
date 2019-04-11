@@ -41,7 +41,8 @@ var generateTokens = function (data, done) {
     data.token = tokenValue;
     token = new AccessToken(data);
 
-    data.token = refreshTokenValue;
+	data.token = refreshTokenValue;
+	
     refreshToken = new RefreshToken(data);
 
     refreshToken.save(errorHandler);
@@ -53,6 +54,7 @@ var generateTokens = function (data, done) {
     		return done(err); 
     	}
     	done(null, tokenValue, refreshTokenValue, { 
+			'userinfo':data.userinfo,
     		'expires_in': config.get('security:tokenLife') 
     	});
     });
@@ -71,8 +73,10 @@ aserver.exchange(oauth2orize.exchange.password(function(client, username, passwo
 			return done(null, false);
 		}
 
+		let userinfo = {"name":user.firstName+" "+user.lastName,"email":user.emailId};
 		var model = { 
 			userId: user.userId, 
+			userinfo:userinfo,
 			clientId: client.clientId 
 		};
 

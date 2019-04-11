@@ -13,6 +13,18 @@ var mongoose = require('mongoose'),
 			type: String,
 			required: true
 		},
+		firstName: {
+			type: String,
+			required: false
+		},
+		lastName: {
+			type: String,
+			required: false
+		},
+		emailId: {
+			type: String,
+			required: false
+		},
 		salt: {
 			type: String,
 			required: true

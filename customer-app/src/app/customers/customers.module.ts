@@ -7,6 +7,10 @@ import { CustomerListComponent } from './customer-list/customer-list.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
+import { CustomerHeaderComponent } from './customer-header/customer-header.component';
+import { CustomerLeftSideComponent } from './customer-left-side/customer-left-side.component';
+import { CustomerFooterComponent } from './customer-footer/customer-footer.component';
+import { AuthguardGuard } from './authguard.guard';
 
 @NgModule({
   imports: [
@@ -16,7 +20,8 @@ import { ProfileComponent } from './profile/profile.component';
     HttpClientModule,
     CustomersRoutingModule
   ],
-  declarations: [CustomerListComponent, LoginComponent, DashboardComponent, ProfileComponent]
+   providers: [AuthguardGuard],
+  declarations: [CustomerListComponent, LoginComponent, DashboardComponent, ProfileComponent, CustomerHeaderComponent, CustomerLeftSideComponent, CustomerFooterComponent]
 })
 export class CustomersModule { }
 
