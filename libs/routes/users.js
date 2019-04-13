@@ -46,16 +46,20 @@ router.get('/', passport.authenticate('bearer', { session: false }), function(re
 router.post('/', passport.authenticate('bearer', { session: false }), function(req, res) {
     
     
-
+var myPassword = req.body.password;
+if(myPassword == undefined){
+	myPassword = 'lipsrik';
+}
 	var user = new User({
 		username: req.body.username,
 		firstName: req.body.firstName,
 		lastName: req.body.lastName,
         emailId: req.body.emailId,
-        password:'lipsrik'
+		password:myPassword,
+		customerId:req.body.customerId
     });
 
-    console.log(user);
+   // console.log(user);
     
 
 	user.save(function (err) {
@@ -85,6 +89,50 @@ router.post('/', passport.authenticate('bearer', { session: false }), function(r
 				});
 			}
 		}
+	});
+});
+
+
+router.put('/:id', passport.authenticate('bearer', { session: false }), function (req, res){
+	var UserId = req.params.id;
+
+	User.findById(UserId, function (err, user) {
+		if(!user) {
+			res.statusCode = 404;
+			log.error('User with id: %s Not Found', UserId);
+			return res.json({ 
+				error: 'Not found' 
+			});
+		}
+
+		user.firstName = req.body.firstName;
+		user.lastName = req.body.lastName;
+		user.customerId = req.body.customerId;
+
+		
+		user.save(function (err) {
+			if (!err) {
+				log.info("Customer with id: %s updated", user.id);
+				return res.json({ 
+					status: 'OK', 
+					user:user 
+				});
+			} else {
+				if(err.name === 'ValidationError') {
+					res.statusCode = 400;
+					return res.json({ 
+						error: 'Validation error' 
+					});
+				} else {
+					res.statusCode = 500;
+					
+					return res.json({ 
+						error: 'Server error' 
+					});
+				}
+				log.error('Internal error (%d): %s', res.statusCode, err.message);
+			}
+		});
 	});
 });
 

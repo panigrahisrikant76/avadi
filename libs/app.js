@@ -15,6 +15,7 @@ var oauth2 = require('./auth/oauth2');
 
 var api = require('./routes/api');
 var users = require('./routes/users');
+var customers = require('./routes/customers');
 var articles = require('./routes/articles');
 var tasks = require('./routes/tasks');
 
@@ -30,6 +31,7 @@ app.use(passport.initialize());
 app.use('/', api);
 app.use('/api', api);
 app.use('/api/users', users);
+app.use('/api/customers', customers);
 app.use('/api/articles', articles);
 app.use('/api/tasks', tasks);
 app.use('/api/oauth/token', oauth2.token);

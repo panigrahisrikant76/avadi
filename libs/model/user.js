@@ -25,6 +25,10 @@ var mongoose = require('mongoose'),
 			type: String,
 			required: false
 		},
+		customerId:{
+			type:String,
+			required:false	
+		},
 		salt: {
 			type: String,
 			required: true
